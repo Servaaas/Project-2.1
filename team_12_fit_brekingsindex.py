@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from functools import partial
 
-Data= pd.read_csv("team_12_data.csv")
+Data = pd.read_csv("data/team_12_data.csv")
 
 I= np.radians(Data['hoek_graden'].values)
 N= Data['aantal_franjes'].values
