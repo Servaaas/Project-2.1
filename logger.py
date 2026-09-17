@@ -1,11 +1,9 @@
 import csv
 import pyvisa
+from time import time
 
 # 1. Initialize the VISA Resource Manager using the pure-Python backend
 rm = pyvisa.ResourceManager()
-
-# List connected resources to find your scope's address
-print("Connected devices:", rm.list_resources())
 
 # 2. Connect to the Rigol DS2102A (replace with your actual resource string)
 # Example USB string looks like: 'USB0::0x1AB1::0x04B0::DS2AXXXXXXXXXX::INSTR'
@@ -32,12 +30,12 @@ x_reference = float(preamble[6])
 print("Fetching waveform data...")
 raw_data = scope.query(":WAVeform:DATA?")
 
-# Clean Rigol's TMC block header (usually something like #9000001200...)
+# Clean Rigol's TMC block header
 # and parse comma-separated voltage values
 voltages = [float(v) for v in raw_data.split(",") if v.strip()]
 
 # 6. Calculate Time-steps and Save to CSV
-output_file = "ds2102a_output.csv"
+output_file = rf"Data_{time}.csv"
 with open(output_file, mode="w", newline="") as file:
     writer = csv.writer(file)
     writer.writerow(["Time (s)", "Voltage (V)"])  # Header
