@@ -35,7 +35,7 @@ raw_data = scope.query(":WAVeform:DATA?")
 voltages = [float(v) for v in raw_data.split(",") if v.strip()]
 
 # 6. Calculate Time-steps and Save to CSV
-output_file = rf"Data_{time}.csv"
+output_file = rf"data\Data_{time}.csv"
 with open(output_file, mode="w", newline="") as file:
     writer = csv.writer(file)
     writer.writerow(["Time (s)", "Voltage (V)"])  # Header
