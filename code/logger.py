@@ -5,6 +5,7 @@ import pyvisa
 from datetime import datetime
 
 # ---------------------------------------------------------------------------------
+
 try:
     # 1. Initialize the VISA Resource Manager using the pure-Python backend
     rm = pyvisa.ResourceManager()
