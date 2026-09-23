@@ -35,7 +35,7 @@ x_reference = pre[6]
 time = x_origin + (np.arange(len(data)) - x_reference) * x_increment
 
 # Save raw samples
-with open("waveform.csv", "w", newline="") as f:
+with open("data//data.csv", "w", newline="") as f:
     writer = csv.writer(f)
     writer.writerow(['time', 'sample'])
     for i in range(len(time)):
