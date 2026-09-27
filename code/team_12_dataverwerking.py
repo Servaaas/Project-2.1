@@ -4,7 +4,13 @@ import csv as c
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 
-def dataverwerking(csv,window):
+csv= r"data\data.csv"
+window= 1
+theta= 2.5
+
+# -------------------------------------------------------------------
+
+def dataverwerking(csv=csv,window=window,theta=theta):
     try:
         data=pd.read_csv(csv)
         t= data['Time (s)'].values
@@ -21,18 +27,14 @@ def dataverwerking(csv,window):
         treshold= V_avr + V_std
         peaks, _ = find_peaks(V_rms, height=treshold)
         peak_t = t[peaks]
+        N= len(peak_t)
 
-        N= np.zeros_like(peak_t)
-        N[0]= 1
-        with open(r"data\peaks.csv","w",newline='') as f:
+        with open(r"data\peaks.csv","a",newline='') as f:
             writer= c.writer(f)
-            writer.writerow(["N (-)","Time (s)"])
-            for i in range(len(N)):
-                N[i+1]= N[i] + 1
-                writer.writerow([N[i],peak_t[i]])
+            writer.writerow([theta,N])
 
         print(peak_t)
     finally:
         print('peak detection executed')
 
-dataverwerking(r"data\data.csv",1)
+dataverwerking()

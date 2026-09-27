@@ -2,6 +2,9 @@ import numpy as np
 import csv
 import serial
 from time import sleep
+from team_12_dataverwerking import dataverwerking
+
+file= r"data\data.csv"
 
 try:
     arduino= serial.Serial(port='COM7',baudrate=115200,timeout=1)
@@ -24,12 +27,13 @@ except KeyboardInterrupt:
     while arduino.in_waiting > 0:
         exit= arduino.readline().decode('utf-8').strip()
     if exit == 'EXIT_0':
-        with open(r"data\data.csv","w",newline='') as f:
+        with open(file,"w",newline='') as f:
             writer= csv.writer(f)
             writer.writerow(["Time (s)","Voltage (V)"])
             for i in range(len(time)):
                 writer.writerow([time[i],volt[i]])
             arduino.close()
+            dataverwerking()
     else:
         print("arduino runtime error")
         arduino.close()
