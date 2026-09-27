@@ -4,13 +4,13 @@ import csv as c
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 
-csv= r"data\data.csv"
+file= r"data\data.csv"
 window= 1
 theta= 2.5
 
 # -------------------------------------------------------------------
 
-def dataverwerking(csv=csv,window=window,theta=theta):
+def dataverwerking(csv=file,window=window,theta=theta):
     try:
         data=pd.read_csv(csv)
         t= data['Time (s)'].values
@@ -36,5 +36,3 @@ def dataverwerking(csv=csv,window=window,theta=theta):
         print(peak_t)
     finally:
         print('peak detection executed')
-
-dataverwerking()
