@@ -43,7 +43,7 @@ def dataverwerking(csv=file,window=window,theta=theta):
             writer= c.writer(f)
             writer.writerow([theta,N])
 
-        #printing the peaks for sanity check
+        #printing the peaks for sanity checking
         print(peak_t)
     finally:
         print('peak detection executed')
