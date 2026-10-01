@@ -1,4 +1,4 @@
-#inports
+# imports
 
 import numpy as np
 import csv
@@ -12,15 +12,10 @@ file= r"data\data.csv"
 
 # --------------------------------------------------------------------
 
-def log(file=file):
+def log(arduino,file=file):
     try:
-        # initialising serial comunication with arduino
-        arduino= serial.Serial(port='COM7',baudrate=115200,timeout=1)
-        sleep(1)
-
         # writing execute code to arduino
         arduino.write(bytes('0','utf-8'))
-        sleep(0.1)
 
         # constantly read the arduino output and write to data arrays until keyboard interrupt occours
         time= np.array([])
@@ -34,7 +29,7 @@ def log(file=file):
     except KeyboardInterrupt:
         # write cease execution code to arduino
         arduino.write(bytes('1','utf-8'))
-        sleep(0.1)
+        sleep(0.0001)
 
         # read the arduino output until last output is read. This will be the exit code if everything went well
         while arduino.in_waiting > 0:
