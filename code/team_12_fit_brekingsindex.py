@@ -1,11 +1,3 @@
-# imports
-
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
-from functools import partial
-
 # constants
 
 df= r"data\team_12_data.csv"
@@ -15,6 +7,13 @@ ld= 632.8E-9
 # ------------------------------------------------
 
 def find_n(df=df,d=d,ld=ld):
+    # imports
+    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    from scipy.optimize import curve_fit
+    from functools import partial
+
     # csv import
     Data= pd.read_csv(df)
     I= np.radians(Data['hoek_graden'].values)

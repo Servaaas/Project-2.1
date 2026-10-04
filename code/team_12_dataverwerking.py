@@ -1,11 +1,3 @@
-# imports
-
-import numpy as np
-import pandas as pd
-import csv as c
-import matplotlib.pyplot as plt
-from scipy.signal import find_peaks
-
 # constants
 
 file= r"data\data.csv"
@@ -15,6 +7,12 @@ theta= 2.5
 # ------------------------------------------------------
 
 def dataverwerking(csv=file,window=window,theta=theta):
+    # imports
+    import numpy as np
+    import pandas as pd
+    import csv as c
+    # import matplotlib.pyplot as plt
+
     try:
         # reading data csv
         data=pd.read_csv(csv)
@@ -25,8 +23,8 @@ def dataverwerking(csv=file,window=window,theta=theta):
         V_rms= np.sqrt(np.convolve(V**2, np.ones(window)/window, 'valid'))
 
         # plotting data for sanity checking
-        plt.plot(t,V_rms)
-        plt.show()
+        # plt.plot(t,V_rms)
+        # plt.show()
 
         # finding a peak treshold
         V_avr= np.average(V_rms)
@@ -34,16 +32,16 @@ def dataverwerking(csv=file,window=window,theta=theta):
         treshold= V_avr + V_std
 
         # executing peak detection and cumputing N
-        peaks, _ = find_peaks(V_rms, height=treshold)
-        peak_t = t[peaks]
-        N= len(peak_t)
+        peaks = (V_rms[1:-1] > V_rms[:-2]) & (V_rms[1:-1] > V_rms[2:])
+        peak_indices = np.where(peaks)[0] + 1
+        peak_indices = peak_indices[peaks[peak_indices] >= treshold]
+        N= len(peak_indices)
 
         # writing the found N to csv file
         with open(r"data\peaks.csv","a",newline='') as f:
             writer= c.writer(f)
             writer.writerow([theta,N])
 
-        #printing the peaks for sanity checking
-        print(peak_t)
+        print(peak_indices)
     finally:
         print('peak detection executed')

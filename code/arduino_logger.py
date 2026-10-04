@@ -1,11 +1,3 @@
-# imports
-
-import numpy as np
-import csv
-import serial
-from time import sleep
-from team_12_dataverwerking import dataverwerking
-
 # constants
 
 file= r"data\data.csv"
@@ -13,6 +5,12 @@ file= r"data\data.csv"
 # --------------------------------------------------------------------
 
 def log(arduino,file=file):
+    # imports
+    import sys
+    import numpy as np
+    import csv
+    from time import sleep
+
     try:
         # writing execute code to arduino
         arduino.write(bytes('0','utf-8'))
@@ -44,10 +42,10 @@ def log(arduino,file=file):
                 for i in range(len(time)):
                     writer.writerow([time[i],volt[i]])
 
-            #close arduino serial connection and execute dataverwerking code
+            #close arduino serial connection and exit function
             arduino.close()
-            dataverwerking()
         else:
             #catch runtime errors if exit code is not recieved
             print("arduino runtime error")
             arduino.close()
+            return sys.exit()
