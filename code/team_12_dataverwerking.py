@@ -1,3 +1,10 @@
+# imports
+
+import numpy as np
+import pandas as pd
+import csv as c
+# import matplotlib.pyplot as plt
+
 # constants
 
 file= r"data\data.csv"
@@ -7,12 +14,6 @@ theta= 2.5
 # ------------------------------------------------------
 
 def dataverwerking(csv=file,window=window,theta=theta):
-    # imports
-    import numpy as np
-    import pandas as pd
-    import csv as c
-    # import matplotlib.pyplot as plt
-
     try:
         # reading data csv
         data=pd.read_csv(csv)
@@ -42,6 +43,7 @@ def dataverwerking(csv=file,window=window,theta=theta):
             writer= c.writer(f)
             writer.writerow([theta,N])
 
+        # printing peaks for sanity checking
         print(peak_indices)
     finally:
         print('peak detection executed')
