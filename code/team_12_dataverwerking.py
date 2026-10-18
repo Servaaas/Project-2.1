@@ -13,7 +13,7 @@ theta= 2.5
 
 # ------------------------------------------------------
 
-def dataverwerking(csv=file,window=window,theta=theta):
+def dataverwerking(N_0,csv=file,window=window,theta=theta):
     try:
         # reading data csv
         data=pd.read_csv(csv)
@@ -36,7 +36,8 @@ def dataverwerking(csv=file,window=window,theta=theta):
         peaks = (V_rms[1:-1] > V_rms[:-2]) & (V_rms[1:-1] > V_rms[2:])
         peak_indices = np.where(peaks)[0] + 1
         peak_indices = peak_indices[peaks[peak_indices] >= treshold]
-        N= len(peak_indices)
+        dN= len(peak_indices)
+        N= dN + N_0
 
         # writing the found N to csv file
         with open(r"data\peaks.csv","a",newline='') as f:
@@ -45,5 +46,8 @@ def dataverwerking(csv=file,window=window,theta=theta):
 
         # printing peaks for sanity checking
         print(peak_indices)
+
+        # returning the previous amount of fringes
+        return N
     finally:
         print('peak detection executed')
