@@ -3,7 +3,8 @@
 import numpy as np
 import pandas as pd
 import csv as c
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+from scipy.signal import find_peaks
 
 # constants
 
@@ -24,8 +25,9 @@ def dataverwerking(N_0,csv=file,window=window,theta=theta):
         V_rms= np.sqrt(np.convolve(V**2, np.ones(window)/window, 'valid'))
 
         # plotting data for sanity checking
-        # plt.plot(t,V_rms)
-        # plt.show()
+        t= np.linspace(0,1,len(V_rms))
+        plt.scatter(t,V_rms)
+        plt.show()
 
         # finding a peak treshold
         V_avr= np.average(V_rms)
@@ -33,10 +35,14 @@ def dataverwerking(N_0,csv=file,window=window,theta=theta):
         treshold= V_avr + V_std
 
         # executing peak detection and cumputing N
-        peaks = (V_rms[1:-1] > V_rms[:-2]) & (V_rms[1:-1] > V_rms[2:])
-        peak_indices = np.where(peaks)[0] + 1
-        peak_indices = peak_indices[peaks[peak_indices] >= treshold]
-        dN= len(peak_indices)
+        # peaks = (V_rms[1:-1] > V_rms[:-2]) & (V_rms[1:-1] > V_rms[2:])
+        # peak_indices = np.where(peaks)[0] + 1
+        # peak_indices = peak_indices[peaks[peak_indices] >= V_avr]
+        # dN= len(peak_indices)
+
+        peaks= find_peaks(V_rms,height=treshold)[0]
+        dN= len(peaks)
+
         N= dN + N_0
 
         # writing the found N to csv file
@@ -45,7 +51,7 @@ def dataverwerking(N_0,csv=file,window=window,theta=theta):
             writer.writerow([theta,N])
 
         # printing peaks for sanity checking
-        print(peak_indices)
+        print(peaks)
 
         # returning the previous amount of fringes
         return N

@@ -31,8 +31,7 @@ def log(arduino,file=file):
                         for i in range(len(time)):
                             writer.writerow([time[i],volt[i]])
                     
-                    #close arduino serial connection and exit function
-                    arduino.close()
+                    #exit function
                     break
                 else:
                     time= np.append(time,inp[0])

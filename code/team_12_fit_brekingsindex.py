@@ -2,7 +2,7 @@
 
 df= r"data\team_12_data.csv"
 d= 5E-3
-ld= 632.8E-9
+ld= 532E-9
 
 # ------------------------------------------------
 
@@ -18,7 +18,8 @@ def find_n(df=df,d=d,ld=ld):
     Data= pd.read_csv(df)
     I= np.radians(Data['hoek_graden'].values)
     N= Data['aantal_franjes'].values
-    Sigma= Data['onzekerheid_N'].values
+    # Sigma= Data['onzekerheid_N'].values
+    Sigma= 0.1
 
     # model initialisation and curve_fit_
     def model(i,n,d,ld):
