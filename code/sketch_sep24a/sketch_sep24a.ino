@@ -6,7 +6,7 @@ class Logger {
     static Logger* instance;
 
     int pin= A0;
-    float dt= 10000.0f;
+    float dt= 40000.0f;
     unsigned long count= 0;
     int data= 0;
 
@@ -88,11 +88,11 @@ class Stepper {
     FspTimer& Timer2;
     static Stepper* instance;
 
-    float dt= 100.0f;
+    float dt= 5.0f;
     int en_pin= 8;
     int step_pin= 9;
     int dir_pin= 10;
-    int steps= 4;
+    int steps= 64;
     int count;
 
   public:
@@ -106,6 +106,7 @@ class Stepper {
       pinMode(dir_pin,OUTPUT);
 
       digitalWrite(en_pin,LOW);
+      digitalWrite(dir_pin,LOW);
 
       uint8_t timerType= GPT_TIMER;
       int8_t timerIndex= FspTimer::get_available_timer(timerType);
