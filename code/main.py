@@ -9,7 +9,7 @@ from team_12_fit_brekingsindex import find_n
 # constants
 
 N_0= 0
-step_a= 7.2
+step_a= 3.6
 
 # ---------------------------------------------------
 

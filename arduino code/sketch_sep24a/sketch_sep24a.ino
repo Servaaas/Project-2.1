@@ -88,11 +88,11 @@ class Stepper {
     FspTimer& Timer2;
     static Stepper* instance;
 
-    float dt= 5.0f;
+    float dt= 20.0f;
     int en_pin= 8;
     int step_pin= 9;
     int dir_pin= 10;
-    int steps= 64;
+    int steps= 128;
     int count;
 
   public:
