@@ -1,3 +1,11 @@
+# imports
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+from functools import partial
+
 # constants
 
 df= r"data\team_12_data.csv"
@@ -7,19 +15,11 @@ ld= 532E-9
 # ------------------------------------------------
 
 def find_n(df=df,d=d,ld=ld):
-    # imports
-    import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    from scipy.optimize import curve_fit
-    from functools import partial
-
     # csv import
     Data= pd.read_csv(df)
     I= np.radians(Data['hoek_graden'].values)
     N= Data['aantal_franjes'].values
-    # Sigma= Data['onzekerheid_N'].values
-    Sigma= 0.1
+    Sigma= Data['onzekerheid_N'].values
 
     # model initialisation and curve_fit_
     def model(i,n,d,ld):
@@ -30,8 +30,10 @@ def find_n(df=df,d=d,ld=ld):
     print(np.sqrt(np.diag(pcov)))
 
     #data plots
-    plt.errorbar(I,N,yerr=Sigma,fmt='o')
-    plt.plot(I,model_N(I,popt[0]))
-    plt.xlabel('hoek van inval (rad)')
+    plt.errorbar(np.degrees(I),N,yerr=Sigma,fmt='o',label="data points")
+    plt.plot(np.degrees(I),model_N(I,popt[0]),label="data fit; n= 1.51 +/- 0.05")
+    plt.xlabel('hoek van inval (Graden)')
     plt.ylabel('aantal franjes (-)')
+    plt.title("getelde franjes tegen invalshoek")
+    plt.legend()
     plt.show()

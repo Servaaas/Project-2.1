@@ -9,7 +9,7 @@ from team_12_fit_brekingsindex import find_n
 # constants
 
 N_0= 0
-step_a= 3.6
+step_a= 3.2
 
 # ---------------------------------------------------
 
@@ -17,7 +17,7 @@ step_a= 3.6
 arduino= serial.Serial(port='COM7',baudrate=115200,timeout=0.1)
 arduino.set_buffer_size(rx_size=1048576)
 
-# start execution of first part of code string
+# execute arduino code and compute N 4 times
 for i in range(1,5):
     log(arduino)
     N_0= dataverwerking(N_0=N_0,theta=step_a*i)
