@@ -3,17 +3,17 @@
 import numpy as np
 import pandas as pd
 import csv as c
+# import matplotlib.pyplot as plt
 from find_peaks import find_peaks_numpy
 
 # constants
 
 file= r"data\data.csv"
-window= 2000
-theta= 2.5
+window= 100
 
 # ------------------------------------------------------
 
-def dataverwerking(N_0,csv=file,window=window,theta=theta):
+def dataverwerking(N_0,theta,csv=file,window=window):
     try:
         # reading data csv
         data=pd.read_csv(csv)
@@ -23,8 +23,13 @@ def dataverwerking(N_0,csv=file,window=window,theta=theta):
         # rolling rms
         V_rms= np.sqrt(np.convolve(V**2, np.ones(window)/window, 'valid'))
 
+        # plotting the data for debugging
+        # t= np.linspace(0,1,len(V_rms))
+        # plt.scatter(t,V_rms)
+        # plt.show()
+
         # executing peak detection and cumputing N
-        peaks= find_peaks_numpy(V_rms,prominence=0.01)
+        peaks= find_peaks_numpy(V_rms,prominence=0.1)
         dN= len(peaks)
 
         # define the total fringes N and sigma

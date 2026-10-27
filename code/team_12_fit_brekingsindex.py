@@ -8,13 +8,12 @@ from functools import partial
 
 # constants
 
-df= r"data\team_12_data.csv"
 d= 3E-3
 ld= 532E-9
 
 # ------------------------------------------------
 
-def find_n(df=df,d=d,ld=ld):
+def find_n(df,d=d,ld=ld):
     # csv import
     Data= pd.read_csv(df)
     I= np.radians(Data['hoek_graden'].values)
