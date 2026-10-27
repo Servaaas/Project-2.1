@@ -92,7 +92,7 @@ class Stepper {
     int en_pin= 8;
     int step_pin= 9;
     int dir_pin= 10;
-    int steps= 128;
+    int steps= 64;
     int count;
 
   public:
